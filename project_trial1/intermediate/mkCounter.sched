@@ -1,0 +1,36 @@
+=== Generated schedule for mkCounter ===
+
+Method schedule
+---------------
+Method: read_A
+Ready signal: True
+Conflict-free: read_B, read_C, read_S
+Sequenced before (restricted): read_A
+Sequenced after: mac_calc
+ 
+Method: read_B
+Ready signal: True
+Conflict-free: read_A, read_C, read_S
+Sequenced before (restricted): read_B
+Sequenced after: mac_calc
+ 
+Method: read_C
+Ready signal: True
+Conflict-free: read_A, read_B, read_S
+Sequenced before (restricted): read_C
+Sequenced after: mac_calc
+ 
+Method: read_S
+Ready signal: True
+Conflict-free: read_A, read_B, read_C
+Sequenced before (restricted): read_S
+Sequenced after: mac_calc
+ 
+Method: mac_calc
+Ready signal: True
+Sequenced before: read_A, read_B, read_C, read_S
+Conflicts: mac_calc
+ 
+Logical execution order: mac_calc, read_A, read_B, read_C, read_S
+
+=========================================

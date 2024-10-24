@@ -1,0 +1,6 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1729770720" />
+    <testcase name="test_counter" classname="test_counter" file="/home/shakti/project_trial1/counter_verif/test_counter.py" lineno="13" time="0.04872012138366699" sim_time_ns="65000.001" ratio_time="1334151.0479444473" />
+  </testsuite>
+</testsuites>
