@@ -1,10 +1,10 @@
-TOPFILE=counter.bsv
+TOPFILE=Mac.bsv
 BSVINCDIR=.:%/Libraries
 BSCDEFINES=RV64
 VERILOGDIR=verilog/
 BUILDDIR=intermediate/
 
-include counter_verif/Makefile.verif
+include Mac_verif/Makefile.verif
 
 .PHONY: simulate
 simulate: 
@@ -19,7 +19,7 @@ generate_verilog:
 clean_build:
 	@make clean
 	@rm -rf $(VERILOGDIR) $(BUILDDIR)
-	@rm -rf counter_verif/__pycache__
+	@rm -rf Mac_verif/__pycache__
 	@rm -rf results.xml cov*.yml
 	@rm -rf *.vcd results.xml sim_build
 	@echo "Cleaned"
