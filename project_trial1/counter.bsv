@@ -1,19 +1,19 @@
-package Counter;
+package Mac;
 
-    interface Counter;
+    interface Mac;
         method Action read_A(Bit#(16) a_in); // Read the input A
 		method Action read_B(Bit#(16) b_in); // Read the input B
 		method Action read_C(Bit#(32) c_in); // Read the input C
 		method Action read_S(Bit#(1) s_in); // Read the input Select
 		method ActionValue#(Bit#(32)) mac_calc (); // mac operator
-    endinterface: Counter
+    endinterface: Mac
 
 
-    // Version 1 of the counter
+    // Version 1 of the Mac
 
     (* synthesize *)
 
-    module mkCounter (Counter);
+    module mkMac (Mac);
 
         Reg#(Bit#(16)) a <- mkReg(0);  
 		Reg#(Bit#(16)) b <- mkReg(0);
@@ -155,6 +155,6 @@ package Counter;
             end
             return out;
         endmethod
-    endmodule: mkCounter
+    endmodule: mkMac
 
 endpackage
