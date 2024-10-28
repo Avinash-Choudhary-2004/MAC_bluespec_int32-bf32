@@ -1,0 +1,32 @@
+=== Generated schedule for mkMac ===
+
+Method schedule
+---------------
+Method: read_in
+Ready signal: ! multiplier_ififo_rv.port1__read[65]
+Sequenced after (restricted): mac_calc
+Conflicts: read_in
+ 
+Method: mac_calc
+Ready signal: adder_ofifo_rv.port0__read[32]
+Sequenced before (restricted): read_in
+Conflicts: mac_calc
+ 
+Rule schedule
+-------------
+Rule: rl_pipeline_mulStage
+Predicate: multiplier_ififo_rv.port0__read[65] &&
+	   (! adder_ififo_rv.port1__read[65])
+Blocking rules: (none)
+ 
+Rule: rl_pipeline_addStage
+Predicate: adder_ififo_rv.port0__read[65] &&
+	   (! adder_ofifo_rv.port1__read[32])
+Blocking rules: (none)
+ 
+Logical execution order: mac_calc,
+			 rl_pipeline_addStage,
+			 rl_pipeline_mulStage,
+			 read_in
+
+=====================================
