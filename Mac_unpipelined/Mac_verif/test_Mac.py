@@ -51,6 +51,7 @@ async def test_Mac(dut):
     dut.EN_read_S.value = 0
     dut.EN_mac_calc.value = 0
     
+    await RisingEdge(dut.CLK)
     
     a_int=file_A_int.readlines()
     b_int=file_B_int.readlines()
@@ -61,7 +62,9 @@ async def test_Mac(dut):
     b_bin=file_B_bin.readlines()
     c_bin=file_C_bin.readlines()
     mac_bin=file_MAC_bin.readlines()
-    
+    expected_out=model_Mac(0,0,0,0,0,0,0,0,0)
+    expected_out=model_Mac(1,0,1,0,1,0,1,0,1)
+    assert int(expected_out) == ((dut.mac_calc.value).signed_integer), f'Counter Output Mismatch, Expected = {int(expected_out)} DUT = {(dut.mac_calc.value).signed_integer}  '
     dut._log.info(f'{type(a_int)}')
     dut._log.info(f'{type(a_int)}')
     dut._log.info(f'{int(b_int[0])}')
@@ -80,12 +83,14 @@ async def test_Mac(dut):
             await RisingEdge(dut.CLK)
             await RisingEdge(dut.CLK)
             await RisingEdge(dut.CLK)
-            dut._log.info(f'{i}')
-            dut._log.info(f'a value {(dut.read_A_a_in.value)}')
-            dut._log.info(f'b value {(dut.read_B_b_in.value)}')
-            dut._log.info(f'c value {(dut.read_C_c_in.value)}')
-            dut._log.info(f'output {(dut.mac_calc.value)}')
+            #dut._log.info(f'{i}')
+            #dut._log.info(f'a value {(dut.read_A_a_in.value)}')
+            #dut._log.info(f'b value {(dut.read_B_b_in.value)}')
+            #dut._log.info(f'c value {(dut.read_C_c_in.value)}')
+            #dut._log.info(f'output {(dut.mac_calc.value)}')
+            expected_out=model_Mac(1,int(a_int[i]),1,int(b_int[i]),1,int(c_int[i]),1,0,1)
             assert int(mac_bin[i]) == int(str(dut.mac_calc.value)), f'Counter Output Mismatch, Expected = {int(mac_bin[i])} DUT = {int(dut.mac_calc.value)}  '
+            assert int(expected_out) == ((dut.mac_calc.value).signed_integer), f'Counter Output Mismatch, Expected = {int(expected_out)} DUT = {(dut.mac_calc.value).signed_integer}  '
     
     
     
@@ -100,11 +105,9 @@ async def test_Mac(dut):
     mac_bin_flt=file_MAC_bin_flt.readlines()
     
     if(len(a_flt)==len(b_flt)==len(c_flt)==len(mac_flt)):
-        for i in range(len(a_flt)-1):
+        for i in range(len(a_flt)):
             dut.EN_read_A.value = 1
-            x=int(a_bin_flt[i],2);
-            #bin_x=binaryValue(x)
-            dut.read_A_a_in.value = x
+            dut.read_A_a_in.value = int(a_bin_flt[i],2)
             dut.EN_read_B.value = 1
             dut.read_B_b_in.value = int(b_bin_flt[i],2)
             dut.EN_read_C.value = 1
@@ -120,8 +123,27 @@ async def test_Mac(dut):
             dut._log.info(f'b value {(dut.read_B_b_in.value)}')
             dut._log.info(f'c value {(dut.read_C_c_in.value)}')
             dut._log.info(f'output {(dut.mac_calc.value)}')
-    
-
-    
+            expected_out=model_Mac(1,int(a_int[i]),1,int(b_int[i]),1,int(c_int[i]),1,1,1)
+            assert int(str(mac_bin_flt[i])[0:30],2) == int(str(dut.mac_calc.value)[0:30],2), f'Counter Output Mismatch, Expected = {(str(mac_bin_flt[i])[0:30],2)} DUT = {(str(dut.mac_calc.value)[0:30],2)}  '
+    '''
+    dut.EN_read_A.value = 1
+    dut.read_A_a_in.value = int(a_bin_flt[553],2)
+    dut.EN_read_B.value = 1
+    dut.read_B_b_in.value = int(b_bin_flt[553],2)
+    dut.EN_read_C.value = 1
+    dut.read_C_c_in.value = int(c_bin_flt[553],2)
+    dut.EN_read_S.value = 1
+    dut.read_S_s_in.value = 1
+    dut.EN_mac_calc.value = 1
+    await RisingEdge(dut.CLK)
+    await RisingEdge(dut.CLK)
+    await RisingEdge(dut.CLK)
+    dut._log.info(f'{i}')
+    dut._log.info(f'a value {(dut.read_A_a_in.value)}')
+    dut._log.info(f'b value {(dut.read_B_b_in.value)}')
+    dut._log.info(f'c value {(dut.read_C_c_in.value)}')
+    dut._log.info(f'output {(dut.mac_calc.value)}')
+    assert int(str(mac_bin_flt[553])[0:30],2) == int(str(dut.mac_calc.value)[0:30],2), f'Counter Output Mismatch, Expected = {(str(mac_bin_flt[553])[0:30],2)} DUT = {(str(dut.mac_calc.value)[0:30],2)}  '     
+    '''
     coverage_db.export_to_yaml(filename="coverage_Mac.yml")
 
