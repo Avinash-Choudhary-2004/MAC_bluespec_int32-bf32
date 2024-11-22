@@ -1,0 +1,6 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1732281552" />
+    <testcase name="test_Sam" classname="test_Sam" file="/home/shakti/Sam_SystolicArrayModule/Sam_verif/test_Sam.py" lineno="14" time="0.024878501892089844" sim_time_ns="185000.001" ratio_time="7436139.113296891" />
+  </testsuite>
+</testsuites>
