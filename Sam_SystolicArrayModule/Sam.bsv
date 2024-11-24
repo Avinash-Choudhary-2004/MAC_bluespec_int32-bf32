@@ -254,8 +254,7 @@ package Sam;
         Reg#(Bool) compute <- mkReg(False);
         
         //--------------------------------------------------------------------------
-        /*
-
+        
         
         rule matrix_prop(compute==False);
             if(curr_state<=8) begin
