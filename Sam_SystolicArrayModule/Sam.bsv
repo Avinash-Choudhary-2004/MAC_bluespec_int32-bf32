@@ -255,71 +255,7 @@ package Sam;
         
         //--------------------------------------------------------------------------
         /*
-        function instantiate_macValues();
-            for(Integer i=0; i<4;i=i+1) begin
-                for(Integer j=0;j<4;j=j+1) begin
-                    mac_matrix[i][j].read_A(16'b0);
-                    mac_matrix[i][j].read_B(16'b0);
-                    mac_matrix[i][j].read_C(32'b0);
-                    mac_matrix[i][j].read_S(0);
-                    mac.mac_calc();
-                end
-            end
-        endfunction
-        
-        function assign_macValues(Bit#(1) s_in);
-            for(Integer i=0; i<4;i=i+1) begin
-                for(Integer j=0;j<7;j=j+1) begin
-                    mac_matrix[i][j].read_A(a[j][i]);
-                    mac_matrix[i][j].read_B(b[i][j]);
-                    mac_matrix[i][j].read_S(s_in);
-                    mac.mac_calc();
-                    mac.matrix[i][j].read_C(mac.matrix[i][j].get_out());
-                end
-            end
-            return 1;
-        endfunction
-        
-        function assign_out();
-            for(Integer i=0; i<4;i=i+1) begin
-                for(Integer j=0;j<7;j=j+1) begin
-                    aligned_out[i][j]=mac.matrix[i][j].get_out();
-                end
-            end
-            return 2;
-        endfunction        
-        
-        
-        
-        rule rl_compute;
-            mac.read_A(unpack(2));
-            mac.read_B(unpack(2));
-            //mac.read_C(unpack(0));
-            mac.read_S(0);
-            mac.mac_calc();
-            aligned_out[0][1]<= mac.get_out();
-            counter<=1;
-        endrule
 
-        
-        
-        function traverse_values();
-            for(Integer i=0; i<4;i=i+1) begin
-                for(Integer j=0;j<4;j=j+1) begin
-                    mac_matrix[i][j].mac_calc();
-                    if(i!=0) begin
-                        mac_matrix[i][j].read_C(mac_matrix[i-1][j].get_out());
-                    end
-                    if(j!=0) begin
-                        mac_matrix[i][j].read_A(mac_matrix[i][j-1].get_a());
-                    end                    
-                end
-            end
-        endfunction         
-        */
-        
-        
-        
         
         rule matrix_prop(compute==False);
             if(curr_state<=8) begin
