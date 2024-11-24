@@ -167,8 +167,8 @@ package Sam;
         Reg#(int) check<-mkReg(0);
         Reg#(Maybe#(Bit#(32))) x<-mkReg(tagged Invalid());
         
-        
-        rule calc_out (check==0);
+        /*
+        rule calc_out;
             if(s==1) begin
                 let x=tagged Valid mac_flt(a,b,c);
                 c<=mac_flt(a,b,c);
@@ -183,7 +183,7 @@ package Sam;
             end
             check<=check+1;         
         endrule
-        
+        */
                 
         
         method Action read_A(Bit#(16) a_in);
@@ -202,7 +202,7 @@ package Sam;
             s<=s_in;
         endmethod
         
-        method Action mac_calc () if(check!=0);
+        method Action mac_calc ();
             if(s==1) begin
                 c<=mac_flt(a,b,c);
                 out<=mac_flt(a,b,c);
@@ -325,7 +325,7 @@ package Sam;
             if(curr_state<=8) begin
                 for(Integer i=0;i<4;i=i+1) begin
                     for(Integer j=3;j>0;j=j-1) begin
-                        if(curr_state==0) begin
+                        if(curr_state==2) begin
                             a_prop[i][j]<=unpack(0);
                             b_prop[j][i]<=unpack(0);                            
                         end
@@ -334,16 +334,24 @@ package Sam;
                             b_prop[j][i]<=b_prop[j-1][i];
                         end
                     end
-                    a_prop[i][0]<=a[curr_state-2][i];
-                    b_prop[0][i]<=b[i][curr_state-2];
+                    a_prop[i][0]<=a[i][curr_state-2];
+                    b_prop[0][i]<=b[curr_state-2][i];
                 end
             end
-            else begin
+            else if(curr_state>=9) begin
                 for(Integer i=0;i<4;i=i+1) begin
-                    for(Integer j=0;j<4;j=j+1) begin
-                        a_prop[i][j]<=unpack(0);
-                        b_prop[i][j]<=unpack(0);
+                    for(Integer j=3;j>0;j=j-1) begin
+                        if(curr_state==2) begin
+                            a_prop[i][j]<=unpack(0);
+                            b_prop[j][i]<=unpack(0);                            
+                        end
+                        else begin
+                            a_prop[i][j]<=a_prop[i][j-1];
+                            b_prop[j][i]<=b_prop[j-1][i];
+                        end
                     end
+                    a_prop[i][0]<=unpack(0);
+                    b_prop[0][i]<=unpack(0);
                 end
             end
             curr_state<=curr_state+1;
@@ -358,20 +366,22 @@ package Sam;
                     mac_matrix[i][j].read_B(b_prop[i][j]);
                     mac_matrix[i][j].read_S(s);
                     mac_matrix[i][j].mac_calc();
+                    aligned_out[i][j]<=mac_matrix[i][j].get_out();
                 end
             end
             counter<=1;   
             compute<=False;         
         endrule
         
-        rule rl_assign_output ;
+        /*
+        rule rl_assign_output(compute==False) ;
             for(Integer i=0;i<4;i=i+1) begin
                 for(Integer j=0;j<4;j=j+1) begin
                     aligned_out[i][j]<=mac_matrix[i][j].get_out();
                 end
             end
         endrule
-        
+        */
     
                 
         //--------------------------------------------------------------------------

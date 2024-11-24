@@ -8,121 +8,14 @@ Sequenced before (restricted): get_in
  
 Rule schedule
 -------------
-Rule: mac_calc_out
-Predicate: mac_check == 32'd0
-Blocking rules: (none)
- 
-Rule: mac_matrix_0_0_calc_out
-Predicate: mac_matrix_0_0_check == 32'd0
-Blocking rules: (none)
- 
-Rule: mac_matrix_0_1_calc_out
-Predicate: mac_matrix_0_1_check == 32'd0
-Blocking rules: (none)
- 
-Rule: mac_matrix_0_2_calc_out
-Predicate: mac_matrix_0_2_check == 32'd0
-Blocking rules: (none)
- 
-Rule: mac_matrix_0_3_calc_out
-Predicate: mac_matrix_0_3_check == 32'd0
-Blocking rules: (none)
- 
-Rule: mac_matrix_1_0_calc_out
-Predicate: mac_matrix_1_0_check == 32'd0
-Blocking rules: (none)
- 
-Rule: mac_matrix_1_1_calc_out
-Predicate: mac_matrix_1_1_check == 32'd0
-Blocking rules: (none)
- 
-Rule: mac_matrix_1_2_calc_out
-Predicate: mac_matrix_1_2_check == 32'd0
-Blocking rules: (none)
- 
-Rule: mac_matrix_1_3_calc_out
-Predicate: mac_matrix_1_3_check == 32'd0
-Blocking rules: (none)
- 
-Rule: mac_matrix_2_0_calc_out
-Predicate: mac_matrix_2_0_check == 32'd0
-Blocking rules: (none)
- 
-Rule: mac_matrix_2_1_calc_out
-Predicate: mac_matrix_2_1_check == 32'd0
-Blocking rules: (none)
- 
-Rule: mac_matrix_2_2_calc_out
-Predicate: mac_matrix_2_2_check == 32'd0
-Blocking rules: (none)
- 
-Rule: mac_matrix_2_3_calc_out
-Predicate: mac_matrix_2_3_check == 32'd0
-Blocking rules: (none)
- 
-Rule: mac_matrix_3_0_calc_out
-Predicate: mac_matrix_3_0_check == 32'd0
-Blocking rules: (none)
- 
-Rule: mac_matrix_3_1_calc_out
-Predicate: mac_matrix_3_1_check == 32'd0
-Blocking rules: (none)
- 
-Rule: mac_matrix_3_2_calc_out
-Predicate: mac_matrix_3_2_check == 32'd0
-Blocking rules: (none)
- 
-Rule: mac_matrix_3_3_calc_out
-Predicate: mac_matrix_3_3_check == 32'd0
-Blocking rules: (none)
- 
 Rule: matrix_prop
-Predicate: True
+Predicate: ! compute
 Blocking rules: (none)
  
 Rule: rl_instantiate
-Predicate: (! (mac_matrix_0_0_check == 32'd0)) &&
-	   (! (mac_matrix_0_1_check == 32'd0)) &&
-	   (! (mac_matrix_0_2_check == 32'd0)) &&
-	   (! (mac_matrix_0_3_check == 32'd0)) &&
-	   (! (mac_matrix_1_0_check == 32'd0)) &&
-	   (! (mac_matrix_1_1_check == 32'd0)) &&
-	   (! (mac_matrix_1_2_check == 32'd0)) &&
-	   (! (mac_matrix_1_3_check == 32'd0)) &&
-	   (! (mac_matrix_2_0_check == 32'd0)) &&
-	   (! (mac_matrix_2_1_check == 32'd0)) &&
-	   (! (mac_matrix_2_2_check == 32'd0)) &&
-	   (! (mac_matrix_2_3_check == 32'd0)) &&
-	   (! (mac_matrix_3_0_check == 32'd0)) &&
-	   (! (mac_matrix_3_1_check == 32'd0)) &&
-	   (! (mac_matrix_3_2_check == 32'd0)) &&
-	   (! (mac_matrix_3_3_check == 32'd0))
+Predicate: compute
 Blocking rules: (none)
  
-Rule: rl_assign_output
-Predicate: True
-Blocking rules: (none)
- 
-Logical execution order: rl_assign_output,
-			 rl_instantiate,
-			 matrix_prop,
-			 get_in,
-			 mac_calc_out,
-			 mac_matrix_0_0_calc_out,
-			 mac_matrix_0_1_calc_out,
-			 mac_matrix_0_2_calc_out,
-			 mac_matrix_0_3_calc_out,
-			 mac_matrix_1_0_calc_out,
-			 mac_matrix_1_1_calc_out,
-			 mac_matrix_1_2_calc_out,
-			 mac_matrix_1_3_calc_out,
-			 mac_matrix_2_0_calc_out,
-			 mac_matrix_2_1_calc_out,
-			 mac_matrix_2_2_calc_out,
-			 mac_matrix_2_3_calc_out,
-			 mac_matrix_3_0_calc_out,
-			 mac_matrix_3_1_calc_out,
-			 mac_matrix_3_2_calc_out,
-			 mac_matrix_3_3_calc_out
+Logical execution order: matrix_prop, rl_instantiate, get_in
 
 =====================================
